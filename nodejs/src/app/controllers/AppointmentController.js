@@ -42,7 +42,7 @@ class AppointmentController {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
-    const { provider_id, date } = req.body;
+    const { provider_id, date } = req.body; // eslint-disable-line
 
     const isProvider = await User.findOne({
       where: { id: provider_id, provider: true },
