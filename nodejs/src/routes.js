@@ -16,18 +16,22 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.post('/users', UserController.store);
-routes.put('/users', authMiddleware, UserController.update);
 
 routes.post('/sessions', SessionController.store);
 
 routes.get('/providers', ProviderController.index);
 
-routes.get('/appointments', authMiddleware, AppointmentController.index);
-routes.post('/appointments', authMiddleware, AppointmentController.store);
+routes.use(authMiddleware);
 
-routes.get('/notifications', authMiddleware, NotificationController.index);
-routes.put('/notifications/:id', authMiddleware, NotificationController.update);
-routes.get('/schedule', authMiddleware, ScheduleController.index);
+routes.put('/users', authMiddleware, UserController.update);
+
+routes.get('/appointments', AppointmentController.index);
+routes.post('/appointments', AppointmentController.store);
+routes.delete('/appointments/:id', AppointmentController.delete);
+
+routes.get('/notifications', NotificationController.index);
+routes.put('/notifications/:id', NotificationController.update);
+routes.get('/schedule', ScheduleController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
 export default routes;
