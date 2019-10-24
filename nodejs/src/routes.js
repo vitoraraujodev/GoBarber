@@ -26,7 +26,7 @@ routes.get('/appointments', authMiddleware, AppointmentController.index);
 routes.post('/appointments', authMiddleware, AppointmentController.store);
 
 routes.get('/notifications', authMiddleware, NotificationController.index);
-
+routes.put('/notifications/:id', authMiddleware, NotificationController.update);
 routes.get('/schedule', authMiddleware, ScheduleController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
