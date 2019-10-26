@@ -12,8 +12,6 @@ import CancellationMail from '../jobs/CancellationMail';
 
 import Queue from '../../lib/Queue';
 
-// import Mail from '../../lib/Mail';
-
 class AppointmentController {
   async index(req, res) {
     const { page = 1 } = req.query;
