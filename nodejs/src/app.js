@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 import Youch from 'youch';
 
 import * as Sentry from '@sentry/node';
@@ -24,6 +25,8 @@ class App {
 
   middlewares() {
     this.server.use(Sentry.Handlers.requestHandler());
+    // Aqui coloca o endereço da aplicação React (cors({origin: 'https://...'}))
+    this.server.use(cors());
     this.server.use(express.json());
     this.server.use(
       '/files',
