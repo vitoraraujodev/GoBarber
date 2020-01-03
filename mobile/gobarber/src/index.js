@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import Routes from './routes';
 
 import './config/ReactotronConfig';
+import 'react-native-gesture-handler';
 
-export default class App extends Component {
-  render() {
-    console.tron.log('hey');
-    return (
-      <View>
-        <Text>Hello World!</Text>
-      </View>
-    );
-  }
+export default function App() {
+  return <Routes />;
 }
