@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image } from 'react-native';
-
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '~/assets/logo.png';
 
 import Background from '~/components/Background';
-
+import { signUpRequest } from '~/store/modules/auth/actions';
 import {
   Container,
   Form,
@@ -15,10 +15,20 @@ import {
 } from './styles';
 
 export default function SignUp({ navigation }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  function handleSubmit() {}
+  const loading = useSelector(state => state.auth.loading);
+
+  const dispatch = useDispatch();
+
+  function handleSubmit() {
+    dispatch(signUpRequest(name, email, password));
+  }
 
   return (
     <Background>
@@ -32,6 +42,8 @@ export default function SignUp({ navigation }) {
             placeholder="Nome completo"
             returnKeyType="next"
             onSubmitEdition={() => emailRef.current.focus()}
+            value={name}
+            onChangeText={setName}
           />
           <FormInput
             icon="mail-outline"
@@ -42,6 +54,8 @@ export default function SignUp({ navigation }) {
             ref={emailRef}
             returnKeyType="next"
             onSubmitEdition={() => passwordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
           />
           <FormInput
             icon="lock-outline"
@@ -50,8 +64,12 @@ export default function SignUp({ navigation }) {
             ref={passwordRef}
             returnKeyType="send"
             onSubmitEdition={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
           />
-          <SubmitButton onPress={() => {}}>Cadastrar</SubmitButton>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
+            Cadastrar
+          </SubmitButton>
         </Form>
         <SignLink
           onPress={() => {
